@@ -4,7 +4,7 @@ import StartPage from './components/StartPage';
 import SummaryPage from './components/SummaryPage';
 import CreateTaskPage from './components/CreateTaskPage';
 
-const App = () => {
+function App () {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (task) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CreateTaskPage = ({ addTask }) => {
+function CreateTaskPage ({ addTask }) {
   const [task, setTask] = useState({
     name: '',
     description: '',
@@ -61,102 +61,130 @@ const CreateTaskPage = ({ addTask }) => {
 
   return (
     <div style={styles.container}>
-      <h1>Create a New Task</h1>
+      <div style={styles.overlay}>
+        <h1>Create a New Task</h1>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
+        <form onSubmit={handleSubmit} style={styles.form}>
 
-        <label>
-          Name:
-          <input type="text" 
-          name="name" 
-          value={task.name} 
-          onChange={handleChange} required />
-        </label>
-
-        <label>
-          Description:
-          <textarea name="description" 
-          value={task.description} 
-          onChange={handleChange} required />
-        </label>
-
-        <label>
-          Category:
-          {isCustomCategory ? (
+          <label>
+            Name:
             <input type="text" 
-            name="customCategory" 
-            value={task.customCategory} 
+            name="name" 
+            placeholder='Task Name - "Physics Homework"'
+            value={task.name} 
             onChange={handleChange} required />
-          ) : (
-            <select name="category" 
-            value={task.category} 
-            onChange={handleCategoryChange}>
-              <option value="Work">Work</option>
-              <option value="Personal">Personal</option>
-              <option value="Family">Family</option>
-              <option value="Other">Other</option>
-            </select>
-          )}
-        </label>
+          </label>
 
-        <label>
-          Date:
-          <input type="date" 
-          name="date" 
-          value={task.date} 
-          onChange={handleChange} required />
-        </label>
+          <label>
+            Description:
+            <textarea name="description"           
+            placeholder='Task Description - "Finish problem set xx on page...'          
+            value={task.description} 
+            onChange={handleChange} 
+            rows="5" // Makes the textarea bigger (height)
+            cols="40" // Makes the textarea wider (width)
+            style={styles.textarea}
+            required />
+          </label>
 
-        <label>
-          Time (Optional):
-          <input type="time" 
-          name="time" 
-          value={task.time} 
-          onChange={handleChange} />
-        </label>
+          <label>
+            Category:
+            {isCustomCategory ? (
+              <input type="text" 
+              name="customCategory" 
+              value={task.customCategory} 
+              onChange={handleChange} required />
+            ) : (
+              <select name="category" 
+              value={task.category} 
+              onChange={handleCategoryChange}>
+                <option value=" ">Select a category</option>
+                <option value=" ">-----------------</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Family">Family</option>
+                <option value="Other">Other</option>
+              </select>
+            )}
+          </label>
 
-        <label>
-          Color:
-          <input type="color" 
-          name="color" 
-          value={task.color} 
-          onChange={handleChange} required />
-        </label>
-
-        <label>
-          Emoji:
-          {isCustomEmoji ? (
-            <input type="text" 
-            name="customEmoji" 
-            value={task.customEmoji} 
+          <label>
+            Date:
+            <input type="date" 
+            name="date" 
+            value={task.date} 
             onChange={handleChange} required />
-          ) : (
-            <select name="emoji" 
-            value={task.emoji} 
-            onChange={handleEmojiChange}>
-              <option value="😊">😊</option>
-              <option value="🚀">🚀</option>
-              <option value="💪">💪</option>
-              <option value="Other">Other</option>
-            </select>
-          )}
-        </label>
+          </label>
 
-        <button type="submit" style={styles.button}>Create Task</button>
-      </form>
+          <label>
+            Time (Optional):
+            <input type="time" 
+            name="time" 
+            value={task.time} 
+            onChange={handleChange} />
+          </label>
 
+          <label>
+            Color:
+            <input type="color" 
+            name="color" 
+            value={task.color} 
+            onChange={handleChange} required />
+          </label>
+
+          <label>
+            Emoji:
+            {isCustomEmoji ? (
+              <input type="text" 
+              name="customEmoji" 
+              value={task.customEmoji} 
+              onChange={handleChange} required />
+            ) : (
+              <select name="emoji" 
+              value={task.emoji} 
+              onChange={handleEmojiChange}>
+                <option value="😊">😊</option>
+                <option value="🚀">🚀</option>
+                <option value="💪">💪</option>
+                <option value="Other">Other</option>
+              </select>
+            )}
+          </label>
+
+          <button type="submit" style={styles.button}>Create Task</button>
+        </form>
+      </div>
     </div>
   );
 };
 
 const styles = {
   container: {
+    position: 'relative',
+    minHeight: '100vh',
+    backgroundImage: 'url("/backgroundIMG.jpg")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    color: 'white',
     padding: '20px',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+  },
+  textarea: {
+    padding: '10px',
+    fontSize: '16px',
   },
   button: {
     padding: '10px 20px',
